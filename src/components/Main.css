@@ -1,0 +1,36 @@
+.words-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.words-table th,
+.words-table td {
+  border: 1px solid #1f350a;
+  padding: 8px;
+  text-align: left;
+}
+
+.words-table th {
+  background-color: #89ce84;
+}
+
+.words-table td input {
+  width: 100%;
+  padding: 4px;
+}
+
+.words-table button {
+  margin: 0 4px;
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.words-table button:hover {
+  background-color: #1a381b;
+}
+
+.words-table button:active {
+  background-color: #3aba2c;
+}
