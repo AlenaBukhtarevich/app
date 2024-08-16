@@ -11,7 +11,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img src="src/assets/images/icon-dictionary.svg" alt="Logo" />
+        <img src="/public/images/icon-dictionary.svg" alt="Logo" />
       </div>
       <div className={styles.search}>
         {isSearchActive ? (
@@ -23,7 +23,7 @@ function Header() {
           />
         ) : (
           <button className={styles.searchButton} onClick={toggleSearch}>
-            <img src="src/assets/images/icon-search.svg" alt="Search" />
+            <img src="/public/images/icon-search.svg" alt="Search" />
           </button>
         )}
       </div>

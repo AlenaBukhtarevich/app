@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WordRow from "./WordRow";
 import "./Main.css";
 
 function Main() {
@@ -59,65 +60,6 @@ function Main() {
         </tbody>
       </table>
     </main>
-  );
-}
-
-function WordRow({ word, onEdit, onDelete }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedWord, setEditedWord] = useState(word);
-
-  return (
-    <tr>
-      {isEditing ? (
-        <>
-          <td>
-            <input
-              value={editedWord.name}
-              onChange={(e) =>
-                setEditedWord({ ...editedWord, name: e.target.value })
-              }
-            />
-          </td>
-          <td>
-            <input
-              value={editedWord.translate}
-              onChange={(e) =>
-                setEditedWord({ ...editedWord, translate: e.target.value })
-              }
-            />
-          </td>
-          <td>
-            <input
-              value={editedWord.transcription}
-              onChange={(e) =>
-                setEditedWord({ ...editedWord, transcription: e.target.value })
-              }
-            />
-          </td>
-          <td>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-            <button
-              onClick={() => {
-                setIsEditing(false);
-                onEdit(editedWord);
-              }}
-            >
-              Save
-            </button>
-          </td>
-        </>
-      ) : (
-        <>
-          <td>{word.name}</td>
-          <td>{word.translate}</td>
-          <td>{word.transcription}</td>
-          <td>
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button onClick={() => onDelete(word.id)}>Delete</button>
-          </td>
-        </>
-      )}
-    </tr>
   );
 }
 
