@@ -11,6 +11,12 @@ function WordRow({ word, onEdit, onDelete }) {
     setIsEditing(false); // Выйти из режима редактирования
   };
 
+  // Обработчик для сохранения изменений
+  const handleSave = () => {
+    setIsEditing(false);
+    onEdit(editedWord);
+  };
+
   return (
     <tr>
       {isEditing ? (
@@ -42,16 +48,10 @@ function WordRow({ word, onEdit, onDelete }) {
               }
             />
           </td>
+
           <td>
             <button onClick={handleCancelEdit}>Отмена редактирования</button>
-            <button
-              onClick={() => {
-                setIsEditing(false);
-                onEdit(editedWord);
-              }}
-            >
-              Сохранить
-            </button>
+            <button onClick={handleSave}>Сохранить</button>
           </td>
         </>
       ) : (
