@@ -1,0 +1,35 @@
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.carousel-card {
+  max-width: 80%;
+}
+
+.carousel-button {
+  background-color: #89ce84;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-button:hover {
+  background-color: #3aba2c;
+}
+
+.left-button {
+  left: -40px;
+}
+
+.right-button {
+  right: -40px;
+}

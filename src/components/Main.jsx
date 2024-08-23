@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import WordRow from "./WordRow";
+import WordCarousel from "./WordCarousel";
 import "./Main.css";
 
 function Main() {
@@ -59,6 +60,7 @@ function Main() {
           ))}
         </tbody>
       </table>
+      <WordCarousel words={words} />
     </main>
   );
 }

@@ -1,0 +1,33 @@
+.word-card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.word-card {
+  padding: 20px;
+  border: 1px solid #1f350a;
+  border-radius: 8px;
+  margin: 20px;
+  text-align: center;
+  background-color: #dfffb6;
+  flex-grow: 1;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.word-card__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.word-card__button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #89ce84;
+  border: none;
+  border-radius: 8px;
+}
