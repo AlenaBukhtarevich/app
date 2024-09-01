@@ -28,14 +28,14 @@ function Header() {
           </button>
         )}
       </div>
-      <div>
+      <nav>
         <Link to="/" className={styles.menu}>
           Главная
         </Link>
         <Link to="/game" className={styles.menu}>
           Карточки
         </Link>
-      </div>
+      </nav>
       <div className={styles.authButtons}>
         <button>Зарегистрироваться</button>
         <button>Выйти</button>

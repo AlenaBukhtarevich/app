@@ -1,11 +1,11 @@
 import React from "react";
-import WordGame from "../components/WordGame/WordGame";
+import WordCarousel from "../components/WordCarousel/WordCarousel";
 
 function WordGamePage() {
   return (
     <div>
       <h1>Тренажёр слов</h1>
-      <WordGame />
+      <WordCarousel />
     </div>
   );
 }
