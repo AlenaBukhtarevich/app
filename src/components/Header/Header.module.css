@@ -1,10 +1,14 @@
 .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 16px;
-  background-color: #ffffff;
+  background-color: #89ce84;
   color: #fff;
+  padding: 1rem;
 }
 
 .logo {
@@ -45,21 +49,23 @@
 
 .authButtons {
   display: flex;
-  gap: 16px;
 }
 
 .authButtons button {
   padding: 8px 16px;
+  margin: 10px;
   border: none;
   background-color: #89ce84;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  z-index: 1;
 }
 
 .authButtons button:hover {
-  background-color: #89ce84;
-}
-.authButtons button:hover {
   background-color: #1a381b;
+}
+.menu {
+  margin: 20px;
+  color: #fff;
 }

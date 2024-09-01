@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import WordCard from "./WordCard";
+import { motion, AnimatePresence } from "framer-motion";
+import WordCard from "../WordCard/WordCard";
 import styles from "./WordCarousel.module.css";
 
 function WordCarousel({ words = [] }) {
@@ -26,16 +26,18 @@ function WordCarousel({ words = [] }) {
       >
         ←
       </button>
-      <motion.div
-        key={currentIndex}
-        className={styles["carousel-card"]}
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -100 }}
-        transition={{ duration: 0.5 }}
-      >
-        <WordCard word={words[currentIndex]} />
-      </motion.div>
+      <AnimatePresence emode="wait">
+        <motion.div
+          key={currentIndex}
+          className={styles["carousel-card"]}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: 0.5 }}
+        >
+          <WordCard word={words[currentIndex]} />
+        </motion.div>
+      </AnimatePresence>
       <button
         onClick={handleNext}
         className={styles["carousel-button right-button"]}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import WordRow from "./WordRow";
-import WordCarousel from "./WordCarousel";
+import WordRow from "../WordRow";
+import WordCarousel from "../WordCarousel/WordCarousel";
 import "./Main.css";
 
 function Main() {
@@ -12,6 +12,14 @@ function Main() {
       translate: "name",
       transcription: "|neɪm|",
       meaning: "Личное название человека, даваемое при рождении.",
+      subject: "тема",
+    },
+    {
+      id: 2,
+      name: "слово",
+      translate: "word",
+      transcription: "|wɜːrd|",
+      meaning: "Единица языка, которая имеет значение.",
       subject: "тема",
     },
     {

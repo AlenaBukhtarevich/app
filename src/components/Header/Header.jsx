@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 function Header() {
@@ -9,10 +10,10 @@ function Header() {
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>
+    <nav className={styles.header}>
+      <Link to="/" className={styles.logo}>
         <img src="/images/icon-dictionary.svg" alt="Logo" />
-      </div>
+      </Link>
       <div className={styles.search}>
         {isSearchActive ? (
           <input
@@ -27,11 +28,19 @@ function Header() {
           </button>
         )}
       </div>
-      <div className={styles.authButtons}>
-        <button className={styles.registerButton}>Зарегистрироваться</button>
-        <button className={styles.logoutButton}>Выйти</button>
+      <div>
+        <Link to="/" className={styles.menu}>
+          Главная
+        </Link>
+        <Link to="/game" className={styles.menu}>
+          Карточки
+        </Link>
       </div>
-    </header>
+      <div className={styles.authButtons}>
+        <button>Зарегистрироваться</button>
+        <button>Выйти</button>
+      </div>
+    </nav>
   );
 }
 
