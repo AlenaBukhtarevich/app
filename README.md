@@ -1,4 +1,4 @@
-# Приложение для изучения иностранных слов по карточкам
+# Приложение для изучения иностранных слов
 
 <img src="public/images/app1.png" alt="app" />
 <img src="public/images/app2.png" alt="app" />
