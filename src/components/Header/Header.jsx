@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import Menu from "./Menu"; // Импортируем новый компонент Menu
 
 function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -20,7 +21,7 @@ function Header() {
             type="text"
             placeholder="Поиск..."
             className={styles.searchInput}
-            onBlur={toggleSearch} // Скрыть поле поиска при потере фокуса
+            onBlur={toggleSearch}
           />
         ) : (
           <button className={styles.searchButton} onClick={toggleSearch}>
@@ -28,14 +29,7 @@ function Header() {
           </button>
         )}
       </div>
-      <nav>
-        <Link to="/" className={styles.menu}>
-          Главная
-        </Link>
-        <Link to="/game" className={styles.menu}>
-          Карточки
-        </Link>
-      </nav>
+      <Menu /> {/* Используем новый компонент */}
       <div className={styles.authButtons}>
         <button>Зарегистрироваться</button>
         <button>Выйти</button>

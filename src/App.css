@@ -2,3 +2,33 @@
   width: 100%;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .menuContainer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .menu {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  .authButtons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .carousel-card {
+    max-width: 100%;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+}

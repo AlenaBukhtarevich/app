@@ -5,6 +5,7 @@ import styles from "./WordCarousel.module.css";
 
 function WordCarousel({ words = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [learnedWordsCount, setLearnedWordsCount] = useState(0);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -18,32 +19,44 @@ function WordCarousel({ words = [] }) {
     );
   };
 
+  const handleShowTranslation = () => {
+    setLearnedWordsCount((count) => count + 1);
+  };
+
   return (
-    <div className={styles["carousel-container"]}>
-      <button
-        onClick={handlePrev}
-        className={styles["carousel-button left-button"]}
-      >
-        ←
-      </button>
-      <AnimatePresence emode="wait">
-        <motion.div
-          key={currentIndex}
-          className={styles["carousel-card"]}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 0.5 }}
+    <div className={styles["carousel-wrapper"]}>
+      <h3 className={styles["learned-words-count"]}>
+        Изучено слов: {learnedWordsCount}
+      </h3>
+      <div className={styles["carousel-container"]}>
+        <button
+          onClick={handlePrev}
+          className={`${styles["carousel-button"]} ${styles["left-button"]}`}
         >
-          <WordCard word={words[currentIndex]} />
-        </motion.div>
-      </AnimatePresence>
-      <button
-        onClick={handleNext}
-        className={styles["carousel-button right-button"]}
-      >
-        →
-      </button>
+          ←
+        </button>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className={styles["carousel-card"]}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.5 }}
+          >
+            <WordCard
+              word={words[currentIndex]}
+              onShowTranslation={handleShowTranslation}
+            />
+          </motion.div>
+        </AnimatePresence>
+        <button
+          onClick={handleNext}
+          className={`${styles["carousel-button"]} ${styles["right-button"]}`}
+        >
+          →
+        </button>
+      </div>
     </div>
   );
 }

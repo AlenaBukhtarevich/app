@@ -1,0 +1,8 @@
+.page-table {
+  margin-top: 10%;
+}
+@media (max-width: 768px) {
+  .page-table {
+    margin-top: 40%;
+  }
+}

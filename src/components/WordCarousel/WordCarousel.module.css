@@ -1,3 +1,15 @@
+.carousel-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.learned-words-count {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
 .carousel-container {
   display: flex;
   align-items: center;
@@ -23,7 +35,7 @@
 }
 
 .carousel-button:hover {
-  background-color: #3aba2c;
+  background-color: #1f350a;
 }
 
 .left-button {

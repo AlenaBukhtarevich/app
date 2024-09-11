@@ -1,0 +1,19 @@
+.menuContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu {
+  color: #1f350a;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu:hover {
+  color: white;
+  background-color: #89ce84;
+  border-radius: 4px;
+}

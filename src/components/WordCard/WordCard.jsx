@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./WordCard.module.css";
 
-function WordCard({ word }) {
+function WordCard({ word, onShowTranslation }) {
   const [isTranslationVisible, setIsTranslationVisible] = useState(false);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+    setIsTranslationVisible(false);
+  }, [word]);
 
   return (
     <div className={styles["word-card-container"]}>
@@ -21,8 +29,12 @@ function WordCard({ word }) {
           </>
         ) : (
           <button
+            ref={buttonRef}
             className={styles["word-card__button"]}
-            onClick={() => setIsTranslationVisible(true)}
+            onClick={() => {
+              setIsTranslationVisible(true);
+              onShowTranslation();
+            }}
           >
             Показать перевод
           </button>
