@@ -1,6 +1,7 @@
 # Приложение для изучения иностранных слов
 
-<img src="public/images/app1.png" alt="app" />
+<img src="public/images/table.png" alt="app" />
+<img src="public/images/words.png" alt="app" />
 <img src="public/images/app2.png" alt="app" />
 
 Главная страница, где отображаются списки слов и карточек, а также режим тренировки.
