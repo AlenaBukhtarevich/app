@@ -4,7 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import WordTablePage from "./pages/WordTablePage";
 import WordGamePage from "./pages/WordGamePage";
-import NotFound from "./components/NotFound";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<WordTablePage />} />
           <Route path="/game" element={<WordGamePage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>

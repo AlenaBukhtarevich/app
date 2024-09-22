@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import Menu from "./Menu"; // Импортируем новый компонент Menu
+import Menu from "../Menu/Menu";
 
 function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -29,7 +29,7 @@ function Header() {
           </button>
         )}
       </div>
-      <Menu /> {/* Используем новый компонент */}
+      <Menu />
       <div className={styles.authButtons}>
         <button>Зарегистрироваться</button>
         <button>Выйти</button>

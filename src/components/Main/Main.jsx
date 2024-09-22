@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import WordRow from "../WordRow";
+import WordRow from "../WordRow/WordRow";
 import WordCarousel from "../WordCarousel/WordCarousel";
 import "./Main.css";
 
