@@ -84,7 +84,6 @@ function Main() {
           ))}
         </tbody>
       </table>
-      <WordCarousel words={words} />
     </main>
   );
 }
