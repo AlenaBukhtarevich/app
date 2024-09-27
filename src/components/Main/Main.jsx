@@ -1,66 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 import WordRow from "../WordRow/WordRow";
-import WordCarousel from "../WordCarousel/WordCarousel";
+import ErrorComponent from "../ErrorComponent/ErrorComponent";
 import "./Main.css";
 
 function Main() {
-  // Пример данных. Позже это может быть заменено на данные из API.
-  const initialWords = [
-    {
-      id: 1,
-      name: "имя",
-      translate: "name",
-      transcription: "|neɪm|",
-      meaning: "Личное название человека, даваемое при рождении.",
-      subject: "тема",
-    },
-    {
-      id: 2,
-      name: "слово",
-      translate: "word",
-      transcription: "|wɜːrd|",
-      meaning: "Единица языка, которая имеет значение.",
-      subject: "тема",
-    },
-    {
-      id: 3,
-      name: "яблоко",
-      translate: "apple",
-      transcription: "|ˈæpl|",
-      meaning: "Фрукт, который растет на яблоне.",
-      subject: "еда",
-    },
-    {
-      id: 4,
-      name: "книга",
-      translate: "book",
-      transcription: "|bʊk|",
-      meaning: "Печатное или рукописное произведение, содержащее текст.",
-      subject: "образование",
-    },
-    {
-      id: 5,
-      name: "стол",
-      translate: "table",
-      transcription: "|ˈteɪbl|",
-      meaning: "Мебельный предмет с плоской горизонтальной поверхностью.",
-      subject: "мебель",
-    },
-  ];
+  const { words, loading, error, editWord, deleteWord } =
+    useContext(AppContext);
 
-  const [words, setWords] = useState(initialWords);
+  if (loading) {
+    return <div>Загрузка...</div>;
+  }
 
-  // Обработчик для удаления слова
-  const handleDelete = (id) => {
-    setWords(words.filter((word) => word.id !== id));
-  };
-
-  // Обработчик для обновления слова
-  const handleEdit = (updatedWord) => {
-    setWords(
-      words.map((word) => (word.id === updatedWord.id ? updatedWord : word))
-    );
-  };
+  if (error) {
+    return <ErrorComponent error={error} />;
+  }
 
   return (
     <main>
@@ -68,8 +22,8 @@ function Main() {
         <thead>
           <tr>
             <th>Слово</th>
-            <th>Перевод</th>
             <th>Транскрипция</th>
+            <th>Перевод</th>
             <th>Действия</th>
           </tr>
         </thead>
@@ -78,8 +32,8 @@ function Main() {
             <WordRow
               key={word.id}
               word={word}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
+              onEdit={editWord}
+              onDelete={deleteWord}
             />
           ))}
         </tbody>

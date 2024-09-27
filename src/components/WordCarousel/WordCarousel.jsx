@@ -1,53 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import WordCard from "../WordCard/WordCard";
+import { AppContext } from "../../context/AppContext";
 import styles from "./WordCarousel.module.css";
 
 function WordCarousel() {
-  // Пример данных, объявленных внутри компонента
-  const words = [
-    {
-      id: 1,
-      name: "имя",
-      translate: "name",
-      transcription: "|neɪm|",
-      meaning: "Личное название человека, даваемое при рождении.",
-      subject: "тема",
-    },
-    {
-      id: 2,
-      name: "слово",
-      translate: "word",
-      transcription: "|wɜːrd|",
-      meaning: "Единица языка, которая имеет значение.",
-      subject: "тема",
-    },
-    {
-      id: 3,
-      name: "яблоко",
-      translate: "apple",
-      transcription: "|ˈæpl|",
-      meaning: "Фрукт, который растет на яблоне.",
-      subject: "еда",
-    },
-    {
-      id: 4,
-      name: "книга",
-      translate: "book",
-      transcription: "|bʊk|",
-      meaning: "Печатное или рукописное произведение, содержащее текст.",
-      subject: "образование",
-    },
-    {
-      id: 5,
-      name: "стол",
-      translate: "table",
-      transcription: "|ˈteɪbl|",
-      meaning: "Мебельный предмет с плоской горизонтальной поверхностью.",
-      subject: "мебель",
-    },
-  ];
-
+  const { words, loading, error } = useContext(AppContext);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [learnedWordsCount, setLearnedWordsCount] = useState(0);
 
@@ -66,6 +24,9 @@ function WordCarousel() {
   const handleShowTranslation = () => {
     setLearnedWordsCount((count) => count + 1);
   };
+
+  if (loading) return <div>Загрузка...</div>;
+  if (error) return <div className={styles.error}>Ошибка: {error}</div>;
 
   return (
     <div className={styles["carousel-wrapper"]}>
