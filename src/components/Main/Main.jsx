@@ -1,69 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WordRow from "../WordRow/WordRow";
 import WordCarousel from "../WordCarousel/WordCarousel";
+import { observer } from "mobx-react";
+import wordStore from "../../store/WordStore";
 import "./Main.css";
 
-function Main() {
-  // Пример данных. Позже это может быть заменено на данные из API.
-  const initialWords = [
-    {
-      id: 1,
-      name: "имя",
-      translate: "name",
-      transcription: "|neɪm|",
-      meaning: "Личное название человека, даваемое при рождении.",
-      subject: "тема",
-    },
-    {
-      id: 2,
-      name: "слово",
-      translate: "word",
-      transcription: "|wɜːrd|",
-      meaning: "Единица языка, которая имеет значение.",
-      subject: "тема",
-    },
-    {
-      id: 3,
-      name: "яблоко",
-      translate: "apple",
-      transcription: "|ˈæpl|",
-      meaning: "Фрукт, который растет на яблоне.",
-      subject: "еда",
-    },
-    {
-      id: 4,
-      name: "книга",
-      translate: "book",
-      transcription: "|bʊk|",
-      meaning: "Печатное или рукописное произведение, содержащее текст.",
-      subject: "образование",
-    },
-    {
-      id: 5,
-      name: "стол",
-      translate: "table",
-      transcription: "|ˈteɪbl|",
-      meaning: "Мебельный предмет с плоской горизонтальной поверхностью.",
-      subject: "мебель",
-    },
-  ];
+const Main = observer(() => {
+  const [newWord, setNewWord] = useState({
+    name: "",
+    translate: "",
+    transcription: "",
+    meaning: "",
+    subject: "",
+  });
 
-  const [words, setWords] = useState(initialWords);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [formError, setFormError] = useState("");
 
-  // Обработчик для удаления слова
-  const handleDelete = (id) => {
-    setWords(words.filter((word) => word.id !== id));
+  useEffect(() => {
+    wordStore.fetchWords();
+  }, []);
+
+  const handleInputChange = (e) => {
+    setNewWord({
+      ...newWord,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // Обработчик для обновления слова
-  const handleEdit = (updatedWord) => {
-    setWords(
-      words.map((word) => (word.id === updatedWord.id ? updatedWord : word))
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validate fields before submitting
+    if (!newWord.name || !newWord.translate || !newWord.transcription) {
+      setFormError("Заполните все обязательные поля!");
+      return;
+    }
+
+    wordStore.addWord(newWord); // Add new word to the store (and API)
+    setNewWord({
+      name: "",
+      translate: "",
+      transcription: "",
+      meaning: "",
+      subject: "",
+    });
+    setIsFormVisible(false);
+    setFormError("");
   };
 
   return (
     <main>
+      <button onClick={() => setIsFormVisible(!isFormVisible)}>
+        {isFormVisible ? "Отменить" : "Добавить новое слово"}
+      </button>
+
+      {isFormVisible && (
+        <form className="add-word-form" onSubmit={handleSubmit}>
+          <input
+            name="name"
+            placeholder="Слово"
+            value={newWord.name}
+            onChange={handleInputChange}
+          />
+          <input
+            name="translate"
+            placeholder="Перевод"
+            value={newWord.translate}
+            onChange={handleInputChange}
+          />
+          <input
+            name="transcription"
+            placeholder="Транскрипция"
+            value={newWord.transcription}
+            onChange={handleInputChange}
+          />
+          <input
+            name="meaning"
+            placeholder="Значение"
+            value={newWord.meaning}
+            onChange={handleInputChange}
+          />
+          <input
+            name="subject"
+            placeholder="Тема"
+            value={newWord.subject}
+            onChange={handleInputChange}
+          />
+          {formError && <p className="error">{formError}</p>}
+          <button type="submit">Сохранить</button>
+        </form>
+      )}
+
       <table className="words-table">
         <thead>
           <tr>
@@ -74,18 +102,20 @@ function Main() {
           </tr>
         </thead>
         <tbody>
-          {words.map((word) => (
+          {wordStore.words.map((word) => (
             <WordRow
               key={word.id}
               word={word}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
+              onEdit={wordStore.updateWord}
+              onDelete={wordStore.deleteWord}
             />
           ))}
         </tbody>
       </table>
+
+      <WordCarousel />
     </main>
   );
-}
+});
 
 export default Main;

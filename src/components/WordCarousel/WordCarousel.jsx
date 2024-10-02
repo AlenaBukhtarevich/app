@@ -1,55 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react";
+import wordStore from "../../store/WordStore";
 import { motion, AnimatePresence } from "framer-motion";
 import WordCard from "../WordCard/WordCard";
 import styles from "./WordCarousel.module.css";
 
-function WordCarousel() {
-  // Пример данных, объявленных внутри компонента
-  const words = [
-    {
-      id: 1,
-      name: "имя",
-      translate: "name",
-      transcription: "|neɪm|",
-      meaning: "Личное название человека, даваемое при рождении.",
-      subject: "тема",
-    },
-    {
-      id: 2,
-      name: "слово",
-      translate: "word",
-      transcription: "|wɜːrd|",
-      meaning: "Единица языка, которая имеет значение.",
-      subject: "тема",
-    },
-    {
-      id: 3,
-      name: "яблоко",
-      translate: "apple",
-      transcription: "|ˈæpl|",
-      meaning: "Фрукт, который растет на яблоне.",
-      subject: "еда",
-    },
-    {
-      id: 4,
-      name: "книга",
-      translate: "book",
-      transcription: "|bʊk|",
-      meaning: "Печатное или рукописное произведение, содержащее текст.",
-      subject: "образование",
-    },
-    {
-      id: 5,
-      name: "стол",
-      translate: "table",
-      transcription: "|ˈteɪbl|",
-      meaning: "Мебельный предмет с плоской горизонтальной поверхностью.",
-      subject: "мебель",
-    },
-  ];
-
+const WordCarousel = observer(() => {
+  const { words, fetchWords } = wordStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [learnedWordsCount, setLearnedWordsCount] = useState(0);
+
+  useEffect(() => {
+    fetchWords();
+  }, [fetchWords]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -80,19 +43,21 @@ function WordCarousel() {
           ←
         </button>
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            className={styles["carousel-card"]}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-          >
-            <WordCard
-              word={words[currentIndex]}
-              onShowTranslation={handleShowTranslation}
-            />
-          </motion.div>
+          {words.length > 0 && (
+            <motion.div
+              key={currentIndex}
+              className={styles["carousel-card"]}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+            >
+              <WordCard
+                word={words[currentIndex]}
+                onShowTranslation={handleShowTranslation}
+              />
+            </motion.div>
+          )}
         </AnimatePresence>
         <button
           onClick={handleNext}
@@ -103,6 +68,6 @@ function WordCarousel() {
       </div>
     </div>
   );
-}
+});
 
 export default WordCarousel;

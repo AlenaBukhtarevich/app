@@ -15,16 +15,14 @@ function WordCard({ word, onShowTranslation }) {
   return (
     <div className={styles["word-card-container"]}>
       <div className={styles["word-card"]}>
-        <h2 className={styles["word-card__title"]}>{word.name}</h2>
-        <p>{word.transcription}</p>
+        <h2 className={styles["word-card__title"]}>{word.russian}</h2>
         {isTranslationVisible ? (
           <>
             <p>{word.translate}</p>
+            <p className={styles["word-card__title"]}>{word.english}</p>
+            <p>{word.transcription}</p>
             <p>
-              <strong>Значение:</strong> {word.meaning}
-            </p>
-            <p>
-              <strong>Тема:</strong> {word.subject}
+              <strong>Тема:</strong> {word.tags}
             </p>
           </>
         ) : (
