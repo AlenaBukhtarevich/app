@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import WordRow from "../WordRow/WordRow";
-import WordCarousel from "../WordCarousel/WordCarousel";
 import { observer } from "mobx-react";
 import wordStore from "../../store/WordStore";
 import "./Main.css";
 
 const Main = observer(() => {
   const [newWord, setNewWord] = useState({
-    name: "",
-    translate: "",
+    russian: "",
+    english: "",
     transcription: "",
-    meaning: "",
-    subject: "",
   });
-
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [formError, setFormError] = useState("");
+  const [showTranslation, setShowTranslation] = useState({});
 
   useEffect(() => {
     wordStore.fetchWords();
@@ -31,42 +28,50 @@ const Main = observer(() => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate fields before submitting
-    if (!newWord.name || !newWord.translate || !newWord.transcription) {
+    if (!newWord.russian || !newWord.english || !newWord.transcription) {
       setFormError("Заполните все обязательные поля!");
       return;
     }
 
-    wordStore.addWord(newWord); // Add new word to the store (and API)
+    wordStore.addWord(newWord);
     setNewWord({
-      name: "",
-      translate: "",
+      russian: "",
+      english: "",
       transcription: "",
-      meaning: "",
-      subject: "",
     });
     setIsFormVisible(false);
     setFormError("");
   };
 
+  const handleEditWord = (updatedWord) => {
+    wordStore.updateWord(updatedWord);
+  };
+
+  const handleDeleteWord = (id) => {
+    wordStore.deleteWord(id);
+  };
+
+  const toggleTranslation = (id) => {
+    setShowTranslation((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
   return (
     <main>
-      <button onClick={() => setIsFormVisible(!isFormVisible)}>
-        {isFormVisible ? "Отменить" : "Добавить новое слово"}
-      </button>
-
       {isFormVisible && (
         <form className="add-word-form" onSubmit={handleSubmit}>
           <input
-            name="name"
+            name="russian"
             placeholder="Слово"
-            value={newWord.name}
+            value={newWord.russian}
             onChange={handleInputChange}
           />
           <input
-            name="translate"
+            name="english"
             placeholder="Перевод"
-            value={newWord.translate}
+            value={newWord.english}
             onChange={handleInputChange}
           />
           <input
@@ -75,22 +80,14 @@ const Main = observer(() => {
             value={newWord.transcription}
             onChange={handleInputChange}
           />
-          <input
-            name="meaning"
-            placeholder="Значение"
-            value={newWord.meaning}
-            onChange={handleInputChange}
-          />
-          <input
-            name="subject"
-            placeholder="Тема"
-            value={newWord.subject}
-            onChange={handleInputChange}
-          />
           {formError && <p className="error">{formError}</p>}
           <button type="submit">Сохранить</button>
         </form>
       )}
+
+      <button onClick={() => setIsFormVisible(!isFormVisible)}>
+        {isFormVisible ? "Отменить" : "Добавить новое слово"}
+      </button>
 
       <table className="words-table">
         <thead>
@@ -106,14 +103,14 @@ const Main = observer(() => {
             <WordRow
               key={word.id}
               word={word}
-              onEdit={wordStore.updateWord}
-              onDelete={wordStore.deleteWord}
+              showTranslation={showTranslation[word.id]}
+              toggleTranslation={() => toggleTranslation(word.id)}
+              onEdit={handleEditWord}
+              onDelete={handleDeleteWord}
             />
           ))}
         </tbody>
       </table>
-
-      <WordCarousel />
     </main>
   );
 });

@@ -6,7 +6,7 @@ import WordCard from "../WordCard/WordCard";
 import styles from "./WordCarousel.module.css";
 
 const WordCarousel = observer(() => {
-  const { words, fetchWords } = wordStore();
+  const { words, fetchWords } = wordStore;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [learnedWordsCount, setLearnedWordsCount] = useState(0);
 
